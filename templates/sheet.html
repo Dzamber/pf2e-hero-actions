@@ -10,35 +10,31 @@
     </button>
     {{/if}}
 </h3>
-<ol class="actions-list item-list directory-list heroActions-list"{{#unless canUse}} data-discard="{{diff}}"{{/unless}}>
-    {{#each list as |action|}}
-    <li class="item action" data-uuid="{{action.uuid}}">
-        <div class="item-name">
-            <div data-action="display" class="item-image" style="background-image: url(systems/pf2e/icons/actions/Passive.webp)">
-                <i class="fas fa-comment-alt"></i>
+<ol class="actions-list item-list directory-list heroActions-list">
+    <section class= "item-list">
+        {{#each list as |action|}}
+        <li class="item action" data-uuid="{{action.uuid}}">
+            <div class="item-name">
+                <div data-action="display" class="item-image" style="background-image: url(systems/pf2e/icons/actions/Passive.webp)">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <h4 data-action="expand">{{action.name}}</h4>
             </div>
-            <h4 data-action="expand">{{action.name}}</h4>
-        </div>
-        {{#if @root.owner}}
-        <div class="item-controls">
-            {{#if @root.canUse}}
-            <button type="button" data-action="use">{{pf2eHeroActions 'heroActions.action.use'}}</button>
-            {{else}}
-            <button type="button" data-action="discard">{{pf2eHeroActions 'heroActions.action.discard'}}</button>
+            {{#if @root.owner}}
+            <div class="item-controls">
+                {{#if @root.canUse}}
+                <button type="button" data-action="use">{{pf2eHeroActions 'heroActions.action.use'}}</button>
+                <button type="button" data-action="discard">{{pf2eHeroActions 'heroActions.action.discard'}}</button>
+                {{/if}}
+            </div>
             {{/if}}
-        </div>
+            <div class="item-summary">
+                <div class="item-description"></div>
+            </div>
+        </li>
+        {{/each}}
+        {{#if canDraw}}
+        <button type="button" data-action="draw">{{pf2eHeroActions 'heroActions.draw' nb=diff}}</button>
         {{/if}}
-        <div class="item-summary">
-            <div class="item-description"></div>
-        </div>
-    </li>
-    {{/each}}
-    {{#if canDraw}}
-    <button type="button" data-action="draw">{{pf2eHeroActions 'heroActions.draw' nb=diff}}</button>
-    {{else if mustDiscard}}
-    <div class="error">{{pf2eHeroActions 'heroActions.error' nb=diff}}</div>
-    <button type="button" data-action="discard-selected">
-        {{pf2eHeroActions 'heroActions.discard' nb=diff}}
-    </button>
-    {{/if}}
+    </section>
 </ol>
